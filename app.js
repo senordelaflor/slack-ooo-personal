@@ -90,7 +90,7 @@ const now = moment().tz(config.app.timebox.timezone);
 const dayOfTheWeek = moment()
   .tz(config.app.timebox.timezone)
   .day();
-const isWeekendDay = global.dayOfTheWeek === 0 || global.dayOfTheWeek === 6;
+const isWeekendDay = dayOfTheWeek === 0 || dayOfTheWeek === 6;
 
 const startOfOOO = moment()
   .tz(config.app.timebox.timezone)
