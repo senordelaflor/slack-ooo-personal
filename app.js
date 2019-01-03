@@ -49,6 +49,21 @@ try {
 }
 
 logger.info("Using the following configuration:", redact(config, ["token"]));
+logger.info(config.app.timebox.timezone);
+const now = moment().tz(config.app.timebox.timezone);
+const dayOfTheWeek = moment()
+  .tz(config.app.timebox.timezone)
+  .day();
+const isWeekendDay = dayOfTheWeek === 0 || dayOfTheWeek === 6;
+
+const startOfOOO = moment()
+  .tz(config.app.timebox.timezone)
+  .hours(config.app.timebox.start)
+  .minutes(0); // 5 PM
+const endOfOOO = moment()
+  .tz(config.app.timebox.timezone)
+  .hours(config.app.timebox.end)
+  .minutes(0);
 
 function end() {
   logger.info("Ending out of office...");
@@ -64,42 +79,10 @@ function start() {
   setTimeout(() => {
     bot.start();
   }, 1000);
-
-  // Set a clock to turn off
-  const rightnow = Date.now();
-  if (config.app.timebox.end > rightnow) {
-    const endDate = new Date(config.app.timebox.end);
-    const diffMS = config.app.timebox.end - rightnow;
-    // Check if diff is greater than MAX_INT32
-    // This causes the setTimeout to overflow and launch immediataly
-    if (diffMS > 0x7fffffff) {
-      logger.error(`
-        32 Int overflow error!
-        ${endDate} is too far into the future.
-        Set this to something less than 24 days or 0
-      `);
-      process.exit(1);
-    }
-    logger.info(`Waiting until ${endDate} for end time...`);
-    setTimeout(end, diffMS);
-  }
 }
 
 // Check if then end is later than now or not set (no end in sight)
-const now = moment().tz(config.app.timebox.timezone);
-const dayOfTheWeek = moment()
-  .tz(config.app.timebox.timezone)
-  .day();
-const isWeekendDay = dayOfTheWeek === 0 || dayOfTheWeek === 6;
 
-const startOfOOO = moment()
-  .tz(config.app.timebox.timezone)
-  .hours(config.app.timebox.start)
-  .minutes(0); // 5 PM
-const endOfOOO = moment()
-  .tz(config.app.timebox.timezone)
-  .hours(config.app.timebox.end)
-  .minutes(0);
 if (!isWeekendDay) {
   // Check if we are past the start time
   if (now.isAfter(startOfOOO) || now.isBefore(endOfOOO)) {
