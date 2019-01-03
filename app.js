@@ -49,19 +49,19 @@ try {
 }
 
 logger.info("Using the following configuration:", redact(config, ["token"]));
-logger.info(config.app.timebox.timezone);
-const now = moment().tz(config.app.timebox.timezone);
+logger.info("America/New_York");
+const now = moment().tz("America/New_York");
 const dayOfTheWeek = moment()
-  .tz(config.app.timebox.timezone)
+  .tz("America/New_York")
   .day();
 const isWeekendDay = dayOfTheWeek === 0 || dayOfTheWeek === 6;
 
 const startOfOOO = moment()
-  .tz(config.app.timebox.timezone)
+  .tz("America/New_York")
   .hours(config.app.timebox.start)
   .minutes(0); // 5 PM
 const endOfOOO = moment()
-  .tz(config.app.timebox.timezone)
+  .tz("America/New_York")
   .hours(config.app.timebox.end)
   .minutes(0);
 
