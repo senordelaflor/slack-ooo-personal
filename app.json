@@ -1,20 +1,15 @@
 {
   "name": "Slack OOO Personal",
   "description": "Your personal Slack Out of Office bot",
-  "keywords": [
-    "slack",
-    "bot",
-    "ooo",
-    "out of office"
-  ],
+  "keywords": ["slack", "bot", "ooo", "out of office"],
   "repository": "https://github.com/shaunburdick/slack-ooo-personal",
   "env": {
     "APP_MESSAGE": {
-      "description": "Your out of office message"
+      "description": ":wave: You've reached me at a time I'm offline. If you need an immediate response, please call or text me. Otherwise I'll get back to you later today if I have work hours left or the next business day if not. You can see how many hours I have left in my Slack Status :slightly_smiling_face:"
     },
     "APP_REMINDER": {
       "description": "Time to wait before responding to person/channel again (in minutes)",
-      "value": "480"
+      "value": "60"
     },
     "APP_RESPOND_DM": {
       "description": "If true, will response to Direct Message",
@@ -26,7 +21,7 @@
     },
     "APP_RESPOND_KEYWORDS": {
       "description": "Comma separated list of other keywords to respond to",
-      "value": "",
+      "value": [],
       "required": false
     },
     "APP_RESPONSE_DMPREFIX": {
@@ -39,19 +34,23 @@
     },
     "APP_TIMEBOX_START": {
       "description": "Time to start responding (Timestamp in milliseconds, or parsable date)",
-      "value": "0"
+      "value": "17"
     },
     "APP_TIMEBOX_END": {
       "description": "Time to stop responding (Timestamp in milliseconds, or parsable date)",
-      "value": "0"
+      "value": "7"
+    },
+    "APP_TIMEBOX_TIMEZONE": {
+      "description": "Time to stop responding (Timestamp in milliseconds, or parsable date)",
+      "value": "America/New_York"
     },
     "APP_ANNOUNCE_TIMES": {
       "description": "A list of times to announce OoO users",
-      "value": "08:00, 16:00"
+      "value": []
     },
     "APP_ANNOUNCE_CHANNELS": {
       "description": "A list of channels to announce OoO users on",
-      "value": "general"
+      "value": []
     },
     "SLACK_TOKEN": {
       "description": "Your Slack token"
